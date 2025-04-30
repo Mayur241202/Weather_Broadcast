@@ -39,6 +39,7 @@ namespace Weather_Broadcast
             lblUsername.Text = currentUsername; // Your label to display username
             lblUsername.Click += LblUsername_Click;
             picUserIcon.Click += PicUserIcon_Click; // if you have a PictureBox for the user icon
+            this.Load += WeatherBoard_Load;
         }
 
         private void LblUsername_Click(object sender, EventArgs e)
@@ -88,6 +89,13 @@ namespace Weather_Broadcast
             // get current selected city obj 
             string currentSelectedCityName = selectCityTextBox.Text;
 
+            if (string.IsNullOrWhiteSpace(currentSelectedCityName))
+            {
+                MessageBox.Show("Please enter a city name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LabelSpinner.Visible = false;
+                return;
+            }
+
             string connectionString = "Data Source=MAYUR5365\\SQLEXPRESS;Initial Catalog=WeatherDB;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -102,7 +110,6 @@ namespace Weather_Broadcast
                     cmd.ExecuteNonQuery();
                 }
             }
-
 
             // pass it to API 
             API apiWeather = new API(currentSelectedCityName, this);
@@ -132,6 +139,17 @@ namespace Weather_Broadcast
             selectCityTextBox.AutoCompleteMode = AutoCompleteMode.Suggest;
             selectCityTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             selectCityTextBox.AutoCompleteCustomSource = cityColl;
+
+            // If user has a default city stored in UserSession, populate the search box
+            if (!string.IsNullOrEmpty(UserSession.DefaultCity))
+            {
+                selectCityTextBox.Text = UserSession.DefaultCity;
+
+                // Optionally, you can automatically click the Confirm button to get weather data
+                // Uncomment the following line if you want this behavior
+                // btnConfirm.PerformClick();
+            }
+            this.FormClosing += FormUtils.HandleFormClosing;
         }
 
         private new void Refresh_Click(object sender, EventArgs e)
@@ -191,7 +209,111 @@ namespace Weather_Broadcast
             historyForm.Show();
         }
 
+        // NEW FAVORITE METHODS
+
+        private void btnAddToFavorites_Click(object sender, EventArgs e)
+        {
+            string cityName = selectCityTextBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(cityName))
+            {
+                MessageBox.Show("Please enter a city name before adding to favorites.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Check if the city is already in favorites
+            if (IsCityInFavorites(cityName))
+            {
+                MessageBox.Show($"{cityName} is already in your favorites.",
+                    "Already in Favorites", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Add city to favorites in database
+            AddCityToFavorites(cityName);
+        }
+
+        private bool IsCityInFavorites(string cityName)
+        {
+            bool exists = false;
+            string connectionString = "Data Source=MAYUR5365\\SQLEXPRESS;Initial Catalog=WeatherDB;Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM Favorites WHERE Username = @username AND CityName = @cityName";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", currentUsername);
+                        cmd.Parameters.AddWithValue("@cityName", cityName);
+                        int count = (int)cmd.ExecuteScalar();
+                        exists = count > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error checking favorites: " + ex.Message,
+                        "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return exists;
+        }
+
+        private void AddCityToFavorites(string cityName)
+        {
+            string connectionString = "Data Source=MAYUR5365\\SQLEXPRESS;Initial Catalog=WeatherDB;Integrated Security=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "INSERT INTO Favorites (Username, CityName) VALUES (@username, @cityName)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", currentUsername);
+                        cmd.Parameters.AddWithValue("@cityName", cityName);
+                        int result = cmd.ExecuteNonQuery();
+
+                        if (result > 0)
+                        {
+                            MessageBox.Show($"{cityName} added to favorites!",
+                                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add to favorites. Please try again.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error adding to favorites: " + ex.Message,
+                        "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnViewFavorites_Click(object sender, EventArgs e)
+        {
+            FavoritesForm favoritesForm = new FavoritesForm(currentUsername, this);
+            favoritesForm.Show();
+        }
+
         public void FetchCityWeatherFromHistory(string cityName)
+        {
+            selectCityTextBox.Text = cityName;
+            btnConfirm.PerformClick(); // Simulates the Confirm button click
+        }
+
+        public void FetchCityWeatherFromFavorites(string cityName)
         {
             selectCityTextBox.Text = cityName;
             btnConfirm.PerformClick(); // Simulates the Confirm button click

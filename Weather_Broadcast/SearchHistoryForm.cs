@@ -68,7 +68,7 @@ namespace Weather_Broadcast
             btnBack.Size = new Size(100, 35);
             btnBack.Location = new Point(100, 330); // shifted slightly left
             btnBack.BackColor = Color.FromArgb(52, 152, 219);
-            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.FlatStyle = FlatStyle.Standard;
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.Font = new Font("Arial", 10, FontStyle.Bold);
             btnBack.Click += BtnBack_Click;
@@ -80,11 +80,13 @@ namespace Weather_Broadcast
             btnDeleteHistory.Size = new Size(140, 35);
             btnDeleteHistory.Location = new Point(220, 330); // placed right next to back button
             btnDeleteHistory.BackColor = Color.FromArgb(231, 76, 60);
-            btnDeleteHistory.FlatStyle = FlatStyle.Flat;
+            btnDeleteHistory.FlatStyle = FlatStyle.Standard;
             btnDeleteHistory.FlatAppearance.BorderSize = 0;
             btnDeleteHistory.Font = new Font("Arial", 10, FontStyle.Bold);
             btnDeleteHistory.Click += BtnDeleteHistory_Click;
             panel.Controls.Add(btnDeleteHistory);
+            this.FormClosing += FormUtils.HandleFormClosing;
+
         }
 
         private void LoadSearchHistory()

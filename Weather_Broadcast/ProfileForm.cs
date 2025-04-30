@@ -35,17 +35,22 @@ namespace Weather_Broadcast
             // Create a nice rounded panel as the form container
             Panel panel = new Panel();
             panel.Size = new Size(350, 300);
-            panel.Location = new Point(25, 30);
-            panel.BackColor = Color.FromArgb(135, 206, 235);
+            panel.Location = new Point(16, 20);
+            panel.BackColor = Color.LightSkyBlue;
             panel.BorderStyle = BorderStyle.FixedSingle;
             this.Controls.Add(panel);
+
+            Font labelFont = new Font("Segoe UI", 12F, FontStyle.Bold);
 
             // Label - Username
             lblUsername = new Label();
             lblUsername.Text = "Username:";
+            lblUsername.BackColor = System.Drawing.Color.FromArgb(72, 120, 242);
+            lblUsername.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblUsername.Location = new Point(30, 30);
             lblUsername.AutoSize = true;
             lblUsername.ForeColor = Color.White;
+            lblUsername.FlatStyle = FlatStyle.Standard;
             panel.Controls.Add(lblUsername);
 
             // TextBox - Username
@@ -53,6 +58,7 @@ namespace Weather_Broadcast
             txtUsername.Location = new Point(150, 30);
             txtUsername.Width = 150;
             txtUsername.ReadOnly = true;
+            txtUsername.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             txtUsername.BackColor = System.Drawing.Color.White;
             txtUsername.ForeColor = System.Drawing.Color.Black;
             txtUsername.BorderStyle = BorderStyle.None;
@@ -61,8 +67,11 @@ namespace Weather_Broadcast
             // Label - Email
             lblEmail = new Label();
             lblEmail.Text = "Email:";
-            lblEmail.Location = new Point(30, 70);
+            lblEmail.BackColor = System.Drawing.Color.FromArgb(72, 120, 242);
+            lblEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblEmail.FlatStyle = FlatStyle.Standard;
             lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(30, 70);
             lblEmail.ForeColor = Color.White;
             panel.Controls.Add(lblEmail);
 
@@ -70,17 +79,21 @@ namespace Weather_Broadcast
             txtEmail = new TextBox();
             txtEmail.Location = new Point(150, 70);
             txtEmail.Width = 150;
+            txtEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             txtEmail.ReadOnly = true;
-            txtUsername.BackColor = System.Drawing.Color.White;
-            txtUsername.ForeColor = System.Drawing.Color.Black;
+            txtEmail.BackColor = System.Drawing.Color.White;
+            txtEmail.ForeColor = System.Drawing.Color.Black;
             txtEmail.BorderStyle = BorderStyle.None;
             panel.Controls.Add(txtEmail);
 
             // Label - New Password
             lblNewPassword = new Label();
             lblNewPassword.Text = "New Password:";
-            lblNewPassword.Location = new Point(30, 110);
+            lblNewPassword.BackColor = System.Drawing.Color.FromArgb(72, 120, 242);
+            lblNewPassword.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblNewPassword.FlatStyle = FlatStyle.Standard;
             lblNewPassword.AutoSize = true;
+            lblNewPassword.Location = new Point(30, 110);
             lblNewPassword.ForeColor = Color.White;
             panel.Controls.Add(lblNewPassword);
 
@@ -88,9 +101,10 @@ namespace Weather_Broadcast
             txtNewPassword = new TextBox();
             txtNewPassword.Location = new Point(150, 110);
             txtNewPassword.Width = 150;
+            txtNewPassword.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             txtNewPassword.PasswordChar = '*';
-            txtUsername.BackColor = System.Drawing.Color.White;
-            txtUsername.ForeColor = System.Drawing.Color.Black;
+            txtNewPassword.BackColor = System.Drawing.Color.White;
+            txtNewPassword.ForeColor = System.Drawing.Color.Black;
             txtNewPassword.BorderStyle = BorderStyle.None;
             panel.Controls.Add(txtNewPassword);
 
@@ -101,7 +115,7 @@ namespace Weather_Broadcast
             btnUpdatePassword.Width = 250;
             btnUpdatePassword.Height = 35;
             btnUpdatePassword.BackColor = Color.FromArgb(46, 204, 113);
-            btnUpdatePassword.FlatStyle = FlatStyle.Flat;
+            btnUpdatePassword.FlatStyle = FlatStyle.Standard;
             btnUpdatePassword.FlatAppearance.BorderSize = 0;
             btnUpdatePassword.Font = new Font("Arial", 10, FontStyle.Bold);
             btnUpdatePassword.Click += BtnUpdatePassword_Click;
@@ -110,11 +124,11 @@ namespace Weather_Broadcast
             // Button - Back
             btnBack = new Button();
             btnBack.Text = "Back";
-            btnBack.Location = new Point(30, 210);
+            btnBack.Location = new Point(50, 210);
             btnBack.Width = 100;
             btnBack.Height = 35;
             btnBack.BackColor = Color.FromArgb(52, 152, 219);
-            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.FlatStyle = FlatStyle.Standard;
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.Font = new Font("Arial", 10, FontStyle.Bold);
             btnBack.Click += btnBack_Click;
@@ -123,15 +137,17 @@ namespace Weather_Broadcast
             // Button - Logout
             btnLogout = new Button();
             btnLogout.Text = "Logout";
-            btnLogout.Location = new Point(150, 210); // Positioned below Update Password button
+            btnLogout.Location = new Point(200, 210); // Positioned below Update Password button
             btnLogout.Width = 100;
             btnLogout.Height = 35;
             btnLogout.BackColor = Color.FromArgb(231, 76, 60);
-            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.FlatStyle = FlatStyle.Standard;
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.Font = new Font("Arial", 10, FontStyle.Bold);
             btnLogout.Click += BtnLogout_Click;
             panel.Controls.Add(btnLogout);
+
+            this.FormClosing += FormUtils.HandleFormClosing;
 
         }
 
@@ -168,6 +184,14 @@ namespace Weather_Broadcast
                 return;
             }
 
+            if (newPassword.Length < 6 ||
+                !System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"[A-Za-z]") ||
+                !System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d"))
+            {
+                MessageBox.Show("Password must be at least 6 characters long and contain both letters and numbers.", "Weak Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string connectionString = "Data Source=MAYUR5365\\SQLEXPRESS;Initial Catalog=WeatherDB;Integrated Security=True";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -185,11 +209,10 @@ namespace Weather_Broadcast
                     if (rowsAffected > 0)
                     {
                         MessageBox.Show("Password updated successfully!");
-
-                        // Redirect to LoginForm
-                        LoginForm loginForm = new LoginForm(); // Make sure LoginForm exists
+                        txtNewPassword.Clear();
+                        LoginForm loginForm = new LoginForm();
                         loginForm.Show();
-                        this.Hide(); // or this.Close();
+                        this.Hide();
                     }
                     else
                     {
@@ -198,6 +221,7 @@ namespace Weather_Broadcast
                 }
             }
         }
+
 
         private void btnBack_Click(object sender, EventArgs e)
         {

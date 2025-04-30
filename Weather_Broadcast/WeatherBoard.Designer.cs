@@ -37,18 +37,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.logo = new System.Windows.Forms.PictureBox();
             this.labelSpinner = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.btnHistory = new System.Windows.Forms.Button();
+            this.btnAddToFavorites = new System.Windows.Forms.Button();
+            this.btnViewFavorites = new System.Windows.Forms.Button();
             this.picUserIcon = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnHistory = new System.Windows.Forms.Button();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUserIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -66,25 +68,24 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(411, 294);
+            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(398, 305);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(214, 36);
+            this.label2.Size = new System.Drawing.Size(179, 27);
             this.label2.TabIndex = 3;
             this.label2.Text = "Enter your city:";
             // 
             // btnConfirm
             // 
-            this.btnConfirm.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnConfirm.Location = new System.Drawing.Point(395, 430);
+            this.btnConfirm.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnConfirm.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnConfirm.Location = new System.Drawing.Point(417, 414);
             this.btnConfirm.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(216, 43);
+            this.btnConfirm.Size = new System.Drawing.Size(149, 43);
             this.btnConfirm.TabIndex = 5;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = false;
@@ -159,24 +160,12 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "Weather Broadcast";
             // 
-            // logo
-            // 
-            this.logo.BackColor = System.Drawing.Color.Transparent;
-            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
-            this.logo.Location = new System.Drawing.Point(19, 0);
-            this.logo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(43, 46);
-            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logo.TabIndex = 1;
-            this.logo.TabStop = false;
-            // 
             // labelSpinner
             // 
             this.labelSpinner.AutoSize = true;
             this.labelSpinner.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSpinner.ForeColor = System.Drawing.Color.White;
-            this.labelSpinner.Location = new System.Drawing.Point(395, 505);
+            this.labelSpinner.Location = new System.Drawing.Point(397, 496);
             this.labelSpinner.Name = "labelSpinner";
             this.labelSpinner.Size = new System.Drawing.Size(201, 36);
             this.labelSpinner.TabIndex = 12;
@@ -193,6 +182,46 @@
             this.lblUsername.TabIndex = 13;
             this.lblUsername.Text = "Username";
             // 
+            // btnHistory
+            // 
+            this.btnHistory.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnHistory.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistory.Location = new System.Drawing.Point(699, 70);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(103, 31);
+            this.btnHistory.TabIndex = 15;
+            this.btnHistory.Text = "History";
+            this.btnHistory.UseVisualStyleBackColor = false;
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
+            // 
+            // btnAddToFavorites
+            // 
+            this.btnAddToFavorites.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAddToFavorites.FlatAppearance.BorderSize = 0;
+            this.btnAddToFavorites.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnAddToFavorites.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAddToFavorites.Location = new System.Drawing.Point(699, 361);
+            this.btnAddToFavorites.Name = "btnAddToFavorites";
+            this.btnAddToFavorites.AutoSize = true;
+            this.btnAddToFavorites.TabIndex = 15;
+            this.btnAddToFavorites.Text = "Add to Favorites";
+            this.btnAddToFavorites.UseVisualStyleBackColor = false;
+            this.btnAddToFavorites.Click += new System.EventHandler(this.btnAddToFavorites_Click);
+            // 
+            // btnViewFavorites
+            // 
+            this.btnViewFavorites.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnViewFavorites.FlatAppearance.BorderSize = 0;
+            this.btnViewFavorites.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnViewFavorites.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnViewFavorites.Location = new System.Drawing.Point(68, 70);
+            this.btnViewFavorites.Name = "btnViewFavorites";
+            this.btnViewFavorites.AutoSize = true;
+            this.btnViewFavorites.TabIndex = 16;
+            this.btnViewFavorites.Text = "View Favorites";
+            this.btnViewFavorites.UseVisualStyleBackColor = false;
+            this.btnViewFavorites.Click += new System.EventHandler(this.btnViewFavorites_Click);
+            // 
             // picUserIcon
             // 
             this.picUserIcon.Image = global::Weather_Broadcast.Properties.Resources.userIcon;
@@ -207,7 +236,7 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(355, 290);
+            this.pictureBox2.Location = new System.Drawing.Point(333, 288);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(59, 44);
@@ -227,17 +256,17 @@
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             // 
-            // btnHistory
+            // logo
             // 
-            this.btnHistory.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnHistory.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHistory.Location = new System.Drawing.Point(699, 70);
-            this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(103, 31);
-            this.btnHistory.TabIndex = 15;
-            this.btnHistory.Text = "History";
-            this.btnHistory.UseVisualStyleBackColor = false;
-            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
+            this.logo.BackColor = System.Drawing.Color.Transparent;
+            this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
+            this.logo.Location = new System.Drawing.Point(19, 0);
+            this.logo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(43, 46);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logo.TabIndex = 1;
+            this.logo.TabStop = false;
             // 
             // WeatherBoard
             // 
@@ -256,6 +285,8 @@
             this.Controls.Add(this.selectCityTextBox);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnAddToFavorites);
+            this.Controls.Add(this.btnViewFavorites);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -267,10 +298,10 @@
             this.Load += new System.EventHandler(this.WeatherBoard_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUserIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,6 +323,8 @@
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.PictureBox picUserIcon;
         private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.Button btnAddToFavorites;
+        private System.Windows.Forms.Button btnViewFavorites;
     }
 }
 

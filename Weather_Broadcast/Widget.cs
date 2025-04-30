@@ -68,8 +68,7 @@ namespace Weather_Broadcast
 
         private void Widget_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Application.OpenForms.Count == 1)
-                Application.Exit();
+            
         }
     }
 }

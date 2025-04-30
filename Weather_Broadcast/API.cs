@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Weather_Broadcast
@@ -73,6 +74,27 @@ namespace Weather_Broadcast
             }
             
         }
-        
+
+        public async static Task<dynamic> FetchWeatherDataForCity(string city)
+        {
+            var url = Constant.FETCH_WEATHER_URL + Constant.API_KEY + "+&q=" + city + "&days=" + Constant.NUMBER_OF_WEATHER_FORECAST_DAYS;
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.GetAsync(url))
+                using (HttpContent content = response.Content)
+                {
+                    string result = await content.ReadAsStringAsync();
+                    dynamic responseData = JsonConvert.DeserializeObject<dynamic>(result);
+                    return responseData;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching data: " + ex.Message);
+                return null;
+            }
+        }
     }
 }

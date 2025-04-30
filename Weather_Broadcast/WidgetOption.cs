@@ -17,13 +17,34 @@ namespace Weather_Broadcast
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            API apiWeather = new API(selectCity.Text);
-            //fetch api to get current weather data and store them in CurrentWeatherResponseFromAPI field
-            API.FetchWeatherDataFromAPI(true);
+            string city = selectCity.Text.Trim();
+
+            if (string.IsNullOrEmpty(city))
+            {
+                MessageBox.Show("Please enter a city name.");
+                return;
+            }
+
+            // Fetch weather data asynchronously for the given city
+            dynamic weatherData = await API.FetchWeatherDataForCity(city); // Ensure this method exists in API.cs
+
+            if (weatherData != null)
+            {
+                // Create a new widget instance for the selected city
+                Widget newWidget = new Widget(weatherData);
+                newWidget.Show(); // Show non-modal (so multiple widgets can be opened)
+            }
+            else
+            {
+                MessageBox.Show("Failed to fetch weather data. Try a valid city.");
+            }
+
+            // Optionally close the options form
             this.Close();
         }
+
 
         private void WidgetOption_Load(object sender, EventArgs e)
         {

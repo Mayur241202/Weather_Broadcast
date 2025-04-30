@@ -71,6 +71,13 @@
     <Compile Include="DailyWeatherControl.Designer.cs">
       <DependentUpon>DailyWeatherControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FavoritesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FavoritesForm.Designer.cs">
+      <DependentUpon>FavoritesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUtils.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -133,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DailyWeatherControl.resx">
       <DependentUpon>DailyWeatherControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FavoritesForm.resx">
+      <DependentUpon>FavoritesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
